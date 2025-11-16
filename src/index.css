@@ -10,21 +10,29 @@ body {
   padding: 0 2rem;
 }
 
+@layer utilities {
+  .btn {
+    @apply font-medium;
+  }
+  .input {
+    @apply outline-none;
+  }
+  .custom-modal {
+    @apply fixed inset-0 bg-black/40 flex items-center justify-center z-10;
+  }
+  .custom-dropdown {
+    @apply absolute top-17 right-0 left-0 bg-base-300 rounded-lg p-2 z-20;
+  }
+}
+
 @theme {
   --color-custom: #5e2ae1;
+
+  --color-prio-low: #4ade80;
+  --color-prio-medium: #fbbf24;
+  --color-prio-high: #ef4444;
+
+  --color-type-task: #00c951;
+  --color-type-feature: #00a6f4;
+  --color-type-imp: #7f22fe;
 }
-
-
-
-/* @theme{
-  --color-custom: darkred;
-}
-
-@plugin "daisyui/theme" {
-  name: "light";
-  --color-custom: skyblue;
-}
-@plugin "daisyui/theme" {
-  name: "dark";
-  --color-custom: darkgreen;
-} */
