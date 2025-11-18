@@ -2,46 +2,53 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 const useProjectsStore = create(
-  persist((set) => ({
-    projects: [],
-    activeProjectId: null,
+  persist(
+    (set) => ({
+      projects: [],
+      activeProjectId: null,
 
-    setActiveProject: (id) => set({ activeProjectId: id }),
+      setActiveProject: (id) => set({ activeProjectId: id }),
 
-    addProject: (name) =>
-      set((state) => ({
-        projects: [
-          ...state.projects,
-          {
+      addProject: (name) =>
+        set((state) => {
+          const id = crypto.randomUUID();
+          return {
+            projects: [...state.projects, { id, name, tasks: [] }],
+            activeProjectId: id,
+          };
+        }),
+
+      addTask: (projectId, data) =>
+        set((state) => {
+          const projectExists = state.projects.find((p) => p.id === projectId);
+
+          if (!projectExists) return state;
+
+          const newTask = {
             id: crypto.randomUUID(),
-            name: name,
-            tasks: [],
-          },
-        ],
-      })),
+            title: data.title,
+            description: data.description,
+            type: data.type,
+            priority: data.priority,
+            status: "todo",
+          };
 
-    addTask: (projectId, data) =>
-      set((state) => {
-        const projectExists = state.projects.find((p) => p.id === projectId);
+          const updatedProjects = state.projects.map((item) =>
+            item.id === projectId
+              ? { ...item, tasks: [...item.tasks, newTask] }
+              : item
+          );
 
-        if (!projectExists) return state;
-
-        const newTask = {
-          id: crypto.randomUUID(),
-          title: data.title,
-          description: data.description,
-          type: data.type,
-          priority: data.priority,
-        };
-
-        const updatedProjects = state.projects.map((item) =>
-          item.id === projectId
-            ? { ...item, tasks: [...item.tasks, newTask] }
-            : item
-        );
-
-        return { ...state, projects: updatedProjects };
+          return { ...state, projects: updatedProjects };
+        }),
+    }),
+    {
+      name: "projects-storage",
+      partialize: (state) => ({
+        projects: state.projects,
+        activeProjectId: state.activeProjectId,
       }),
-  }))
+    }
+  )
 );
 export default useProjectsStore;

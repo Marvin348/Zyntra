@@ -20,8 +20,8 @@ const TypeSelect = ({ type, setType, typeError }) => {
           "Select a Type"
         ) : (
           <div className="flex items-center gap-2">
-            <selectedType.icon className={selectedType.className} />
-            <span className={selectedType.className}>{selectedType.label}</span>
+            <selectedType.icon className={selectedType.textClass} />
+            <span className={selectedType.textClass}>{selectedType.label}</span>
           </div>
         )}{" "}
         <FaChevronDown
@@ -30,10 +30,10 @@ const TypeSelect = ({ type, setType, typeError }) => {
       </button>
       {isOpen && (
         <ul className="custom-dropdown">
-          {TYPE_OPTIONS.map(({ label, value, icon: Icon, className }) => (
+          {TYPE_OPTIONS.map(({ label, value, icon: Icon, textClass }) => (
             <li
               key={value}
-              className={`${className} flex items-center gap-2 p-1 cursor-pointer rounded-lg hover:bg-base-100`}
+              className={`${textClass} flex items-center gap-2 p-1 cursor-pointer rounded-lg hover:bg-base-100`}
               onClick={() => {
                 setType(value);
                 setIsOpen(false);

@@ -21,8 +21,8 @@ const PrioritySelect = ({ priority, setPriority, priorityError }) => {
           "Select a Priority"
         ) : (
           <div className="flex items-center gap-2">
-            <selectedOption.icon className={selectedOption.className} />
-            <span className={selectedOption.className}>
+            <selectedOption.icon className={selectedOption.textClass} />
+            <span className={selectedOption.textClass}>
               {selectedOption.label}
             </span>
           </div>
@@ -33,10 +33,10 @@ const PrioritySelect = ({ priority, setPriority, priorityError }) => {
       </button>
       {isOpen && (
         <ul className="custom-dropdown">
-          {PRIORITY_OPTIONS.map(({ value, label, icon: Icon, className }) => (
+          {PRIORITY_OPTIONS.map(({ value, label, icon: Icon, textClass }) => (
             <li
               key={value}
-              className={`flex items-center gap-2 p-1 rounded-lg cursor-pointer hover:bg-base-100 ${className}`}
+              className={`flex items-center gap-2 p-1 rounded-lg cursor-pointer hover:bg-base-100 ${textClass}`}
               onClick={() => {
                 setPriority(value);
                 setIsOpen(false);

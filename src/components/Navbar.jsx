@@ -9,10 +9,10 @@ const Navbar = ({ onCreateProject }) => {
 
   return (
     <header>
-      <nav className="relative flex items-center justify-between py-4">
+      <nav className="flex items-center justify-between py-4">
         <div className="flex gap-8">
           <img className="w-28" src={logoWhite} alt="zyntra" />
-          <div>
+          <div className="relative">
             <input
               type="text"
               placeholder="Search..."
@@ -23,14 +23,14 @@ const Navbar = ({ onCreateProject }) => {
                 setIsSelectorOpen(true);
               }}
             />
+            {isSeletctorOpen && (
+              <ProjectSelector
+                query={query}
+                onClose={() => setIsSelectorOpen(false)}
+              />
+            )}
           </div>
         </div>
-        {isSeletctorOpen && (
-          <ProjectSelector
-            query={query}
-            onClose={() => setIsSelectorOpen(false)}
-          />
-        )}
         <div className="flex gap-2">
           <button className="btn" onClick={onCreateProject}>
             Create Project

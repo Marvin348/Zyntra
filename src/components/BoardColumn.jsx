@@ -1,11 +1,24 @@
 import useProjectsStore from "../storage/useProjectsStore";
+import EmptyTask from "./EmptyTask";
 import Task from "./Task";
 
-const BoardColumn = ({ label }) => {
+const BoardColumn = ({ label, status }) => {
   const activeProjectId = useProjectsStore((state) => state.activeProjectId);
 
   const activeProject = useProjectsStore((state) =>
     state.projects.find((p) => p.id === activeProjectId)
+  );
+
+  if (activeProject.tasks.length === 0) {
+    return (
+      <div className="text-center">
+        <EmptyTask />
+      </div>
+    );
+  }
+
+  const columnTasks = activeProject.tasks.filter(
+    (task) => task.status === status
   );
 
   return (
@@ -16,7 +29,7 @@ const BoardColumn = ({ label }) => {
           3
         </div>
       </div>
-      {activeProject.tasks.map((item) => (
+      {columnTasks.map((item) => (
         <div
           key={item.id}
           className="mt-6 p-4 border rounded-md border-base-content/40"
