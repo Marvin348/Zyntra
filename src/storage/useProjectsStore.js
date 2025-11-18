@@ -18,6 +18,18 @@ const useProjectsStore = create(
           };
         }),
 
+      deleteTask: (taskId, projectId) =>
+        set((state) => ({
+          projects: state.projects.map((project) =>
+            project.id === projectId
+              ? {
+                  ...project,
+                  tasks: project.tasks.filter((t) => t.id !== taskId),
+                }
+              : project
+          ),
+        })),
+
       addTask: (projectId, data) =>
         set((state) => {
           const projectExists = state.projects.find((p) => p.id === projectId);
@@ -42,6 +54,7 @@ const useProjectsStore = create(
           return { ...state, projects: updatedProjects };
         }),
     }),
+
     {
       name: "projects-storage",
       partialize: (state) => ({

@@ -9,6 +9,8 @@ const BoardColumn = ({ label, status }) => {
     state.projects.find((p) => p.id === activeProjectId)
   );
 
+  const deleteTask = useProjectsStore((state) => state.deleteTask);
+
   if (activeProject.tasks.length === 0) {
     return (
       <div className="text-center">
@@ -35,11 +37,8 @@ const BoardColumn = ({ label, status }) => {
           className="mt-6 p-4 border rounded-md border-base-content/40"
         >
           <Task
-            id={item.id}
-            title={item.title}
-            description={item.description}
-            type={item.type}
-            priority={item.priority}
+            task={item}
+            deleteTask={() => deleteTask(item.id, activeProjectId)}
           />
         </div>
       ))}

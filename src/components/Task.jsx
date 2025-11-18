@@ -2,7 +2,9 @@ import { SlOptions } from "react-icons/sl";
 import TaskDropdown from "./TaskDropdown";
 import { useState } from "react";
 import { TYPE_OPTIONS, PRIORITY_OPTIONS } from "../constants/taskOptions";
-const Task = ({ id, title, description, priority, type }) => {
+const Task = ({ task, deleteTask }) => {
+  const { id, title, description, type, priority } = task;
+
   const [open, setOpen] = useState(false);
 
   const typeInfo = TYPE_OPTIONS.find((o) => o.value === type);
@@ -35,7 +37,7 @@ const Task = ({ id, title, description, priority, type }) => {
           <SlOptions />
         </button>
       </div>
-      {open && <TaskDropdown />}
+      {open && <TaskDropdown deleteTask={deleteTask}/>}
       <h2 className="mt-2 font-bold">{title}</h2>
       <p className="text-base-content/50 text-sm">{description}</p>
     </div>
