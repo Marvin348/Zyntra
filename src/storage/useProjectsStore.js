@@ -30,6 +30,20 @@ const useProjectsStore = create(
           ),
         })),
 
+      updateTaskStatus: (taskId, projectId, newStatus) =>
+        set((state) => ({
+          projects: state.projects.map((p) =>
+            p.id === projectId
+              ? {
+                  ...p,
+                  tasks: p.tasks.map((task) =>
+                    task.id === taskId ? { ...task, status: newStatus } : task
+                  ),
+                }
+              : p
+          ),
+        })),
+
       addTask: (projectId, data) =>
         set((state) => {
           const projectExists = state.projects.find((p) => p.id === projectId);

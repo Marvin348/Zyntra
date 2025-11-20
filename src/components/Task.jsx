@@ -2,6 +2,9 @@ import { SlOptions } from "react-icons/sl";
 import TaskDropdown from "./TaskDropdown";
 import { useState } from "react";
 import { TYPE_OPTIONS, PRIORITY_OPTIONS } from "../constants/taskOptions";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
 const Task = ({ task, deleteTask }) => {
   const { id, title, description, type, priority } = task;
 
@@ -13,33 +16,56 @@ const Task = ({ task, deleteTask }) => {
   const TypeIcon = typeInfo.icon;
   const PriorityIcon = priorityInfo.icon;
 
+  const { setNodeRef, attributes, listeners, transform, transition } =
+    useSortable({
+      id: id,
+    });
+
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
+
   return (
-    <div className="relative">
-      <div className="flex items-center justify-between">
-        <div className="flex gap-4">
-          <span
-            className={`${typeInfo.textClass} ${typeInfo.bgClass} flex items-center gap-1 text-xs rounded-md p-1 font-medium`}
+    <div
+      className="mt-6 p-4 border rounded-md border-base-content/40 bg-base-300"
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
+      <div className="relative">
+        <div className="flex items-center justify-between">
+          <div className="flex gap-4">
+            <span
+              className={`${typeInfo.textClass} ${typeInfo.bgClass} flex items-center gap-1 text-xs rounded-md p-1 font-medium`}
+            >
+              <TypeIcon />
+              {typeInfo.label}
+            </span>
+            <span
+              className={`${priorityInfo.textClass} ${priorityInfo.bgClass} flex items-center gap-1 text-xs rounded-md p-1 font-medium`}
+            >
+              <PriorityIcon />
+              {priorityInfo.label}
+            </span>
+          </div>
+          <button
+            className="p-2 rounded-md cursor-pointer text-xs hover:bg-base-content/5"
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpen((prev) => !prev);
+            }}
           >
-            <TypeIcon />
-            {typeInfo.label}
-          </span>
-          <span
-            className={`${priorityInfo.textClass} ${priorityInfo.bgClass} flex items-center gap-1 text-xs rounded-md p-1 font-medium`}
-          >
-            <PriorityIcon />
-            {priorityInfo.label}
-          </span>
+            <SlOptions />
+          </button>
         </div>
-        <button
-          className="p-2 rounded-md cursor-pointer text-xs hover:bg-base-content/5"
-          onClick={() => setOpen((prev) => !prev)}
-        >
-          <SlOptions />
-        </button>
+        {open && <TaskDropdown deleteTask={deleteTask} />}
+        <div>
+          <h2 className="mt-2 font-bold">{title}</h2>
+          <p className="text-base-content/50 text-sm">{description}</p>
+        </div>
       </div>
-      {open && <TaskDropdown deleteTask={deleteTask}/>}
-      <h2 className="mt-2 font-bold">{title}</h2>
-      <p className="text-base-content/50 text-sm">{description}</p>
     </div>
   );
 };
