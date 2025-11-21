@@ -18,6 +18,27 @@ const useProjectsStore = create(
           };
         }),
 
+      deleteProject: (projectId) =>
+        set((state) => {
+          const updated = state.projects.filter((p) => p.id !== projectId);
+
+          const newActive =
+            state.activeProjectId === projectId
+              ? updated[0]?.id || null
+              : state.activeProjectId;
+
+          return {
+            projects: updated,
+            activeProjectId: newActive,
+          };
+        }),
+
+      deleteAllProjects: () =>
+        set((state) => ({
+          projects: [],
+          activeProjectId: null,
+        })),
+
       deleteTask: (taskId, projectId) =>
         set((state) => ({
           projects: state.projects.map((project) =>

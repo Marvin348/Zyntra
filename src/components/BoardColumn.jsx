@@ -15,7 +15,7 @@ const BoardColumn = ({ label, status }) => {
     state.projects.find((p) => p.id === activeProjectId)
   );
 
-  const columnTasks = activeProject.tasks.filter(
+  const columnTasks = activeProject?.tasks?.filter(
     (task) => task.status === status
   );
   const ids = columnTasks.map((t) => t.id);

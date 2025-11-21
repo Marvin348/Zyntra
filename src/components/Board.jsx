@@ -1,22 +1,20 @@
 import { useState } from "react";
+import { FaList } from "react-icons/fa6";
 import useProjectsStore from "../storage/useProjectsStore";
 import AddTaskModal from "./AddTaskModal";
 import BoardControls from "./BoardControls";
 import BoardColumn from "./BoardColumn";
 import EmptyState from "./EmptyState";
-import {
-  closestCenter,
-  DndContext,
-  DragOverlay,
-  PointerSensor,
-  useSensors,
-  useSensor,
-} from "@dnd-kit/core";
+import { COLUMNS } from "../constants/columns";
+import { closestCenter, DndContext, DragOverlay } from "@dnd-kit/core";
 import Task from "./Task";
+import ProjectSwitcher from "./ProjectSwitcher";
+import { useBoardDnd } from "../hooks/useBoardDnd";
 
 const Board = () => {
   const [activeTask, setActiveTask] = useState(null);
   const [taskModalOpen, setTaskModalOpen] = useState(false);
+  const [openAllProjects, setOpenAllProjects] = useState(false);
 
   const projects = useProjectsStore((state) => state.projects);
   const activeProjectId = useProjectsStore((state) => state.activeProjectId);
@@ -24,53 +22,22 @@ const Board = () => {
     state.projects.find((p) => p.id === activeProjectId)
   );
   const updateTaskStatus = useProjectsStore((state) => state.updateTaskStatus);
+  const deleteProject = useProjectsStore((state) => state.deleteProject);
+  const setActiveProject = useProjectsStore((state) => state.setActiveProject);
+  const deleteAllProjects = useProjectsStore(
+    (state) => state.deleteAllProjects
+  );
 
   const activeTaskData = activeProject?.tasks.find((t) => t.id === activeTask);
 
-  const handleDragEnd = ({ active, over }) => {
-    if (!over) {
-      setActiveTask(null);
-      return;
-    }
+  const { sensors, handleDragEnd } = useBoardDnd({
+    updateTaskStatus,
+    activeProject,
+    setActiveTask,
+    COLUMNS,
+  });
 
-    const taskId = active.id;
-    const newStatus = over.id;
-
-    const validStatuses = COLUMNS.map((c) => c.status);
-    const isColumn = validStatuses.includes(newStatus);
-
-    console.log(`ID: ${taskId}, STATUS: ${newStatus}`);
-
-    if (isColumn) {
-      updateTaskStatus(taskId, activeProject.id, newStatus);
-    }
-
-    setActiveTask(null);
-  };
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    })
-  );
-
-  const COLUMNS = [
-    { label: "TO DO", status: "todo" },
-    { label: "IN PROGRESS", status: "inprogress" },
-    { label: "COMPLETED", status: "completed" },
-  ];
-
-  if (projects.length === 0) {
-    return (
-      <div className="text-center mt-12">
-        <EmptyState />
-      </div>
-    );
-  }
-
-  if (!activeProjectId) {
+  if (projects.length === 0 || !activeProject) {
     return (
       <div className="text-center mt-12">
         <EmptyState />
@@ -81,11 +48,29 @@ const Board = () => {
   console.log(activeProject);
 
   return (
-    <section>
+    <main>
       <div className="flex items-center justify-between mt-20 mb-4">
-        <h2 className="font-semibold text-3xl">Projects</h2>
+        <div className="flex items-center">
+          <h2 className="font-semibold text-3xl">Projects</h2>
+          <button
+            className="px-4 cursor-pointer"
+            onClick={() => setOpenAllProjects(true)}
+          >
+            <FaList />
+          </button>
+        </div>
         <BoardControls onAddTask={() => setTaskModalOpen(true)} />
       </div>
+      {openAllProjects && (
+        <ProjectSwitcher
+          projects={projects}
+          onClose={() => setOpenAllProjects(false)}
+          activeProjectId={activeProjectId}
+          onDeleteProject={deleteProject}
+          onDeleteAll={deleteAllProjects}
+          setActiveProject={setActiveProject}
+        />
+      )}
 
       <div className="flex flex-col sm:flex-row justify-between gap-6">
         <DndContext
@@ -109,7 +94,7 @@ const Board = () => {
           onClose={() => setTaskModalOpen(false)}
         />
       )}
-    </section>
+    </main>
   );
 };
 export default Board;
