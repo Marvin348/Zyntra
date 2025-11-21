@@ -55,7 +55,7 @@ const ProjectSwitcher = ({
               </div>
 
               <button
-                className="rounded-md p-1 bg-prio-high/20 text-prio-high cursor-pointer"
+                className="rounded-md p-1 bg-prio-high/20 text-prio-high cursor-pointer hover:text-base-content"
                 onClick={(e) => {
                   e.stopPropagation();
                   onDeleteProject(p.id);

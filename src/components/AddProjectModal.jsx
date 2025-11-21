@@ -1,6 +1,6 @@
 import useProjectsStore from "../storage/useProjectsStore";
 import useScrollLock from "../hooks/useScrollLock";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const AddProjectModal = ({ onClose }) => {
   const [projectName, setProjectName] = useState("");
@@ -9,6 +9,12 @@ const AddProjectModal = ({ onClose }) => {
   useScrollLock(true);
 
   const addProject = useProjectsStore((state) => state.addProject);
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -31,11 +37,12 @@ const AddProjectModal = ({ onClose }) => {
       >
         <form onSubmit={onSubmit}>
           <h2 className="font-semibold text-xl mb-1">New Project</h2>
-          <p>Fill the input below to create a project</p>
+          <p className="text-base-content/40 text-sm">Fill the input below to create a project</p>
           <input
             type="text"
             placeholder="Type here"
             value={projectName}
+            ref={inputRef}
             onChange={(e) => setProjectName(e.target.value)}
             className="input w-full mt-4"
           />

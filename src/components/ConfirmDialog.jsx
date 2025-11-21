@@ -4,7 +4,7 @@ const ConfirmDialog = ({ onClose, onConfirm }) => {
   return (
     <div className="custom-modal px-8">
       <div className="bg-base-200 p-4 rounded-md text-center">
-        <h3 className="text-lg font-semibold">Delete all projects?</h3>
+        <h3 className="text-lg font-semibold">Delete all Projects?</h3>
         <p className="mb-4 mt-1 text-error text-xs">
           This action cannot be undone. All tasks will be removed as well.
         </p>
