@@ -49,6 +49,7 @@ const Board = () => {
   }
 
   console.log(activeProject);
+  console.log(activeTask)
 
   return (
     <main>

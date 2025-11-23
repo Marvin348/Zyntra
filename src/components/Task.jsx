@@ -2,7 +2,7 @@ import { SlOptions } from "react-icons/sl";
 import TaskDropdown from "./TaskDropdown";
 import { useState } from "react";
 import { TYPE_OPTIONS, PRIORITY_OPTIONS } from "../constants/taskOptions";
-import { useSortable } from "@dnd-kit/sortable";
+import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
 const Task = ({ task, deleteTask, onEditTask }) => {
@@ -16,15 +16,25 @@ const Task = ({ task, deleteTask, onEditTask }) => {
   const TypeIcon = typeInfo.icon;
   const PriorityIcon = priorityInfo.icon;
 
-  const { setNodeRef, attributes, listeners, transform, transition } =
-    useSortable({
-      id: id,
-    });
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+  } = useDraggable({
+    id: id,
+  });
 
   const style = {
     transition,
     transform: CSS.Transform.toString(transform),
   };
+
+  if (isDragging) {
+    return <div ref={setNodeRef}></div>;
+  }
 
   return (
     <div

@@ -23,11 +23,12 @@ export const useBoardDnd = ({
     const newStatus = over.id;
 
     const validStatuses = COLUMNS.map((c) => c.status);
-    const isColumn = validStatuses.includes(newStatus);
-
-    if (isColumn) {
-      updateTaskStatus(taskId, activeProject.id, newStatus);
+    if (!validStatuses.includes(newStatus)) {
+      setActiveTask(null);
+      return;
     }
+
+    updateTaskStatus(taskId, activeProject.id, newStatus);
 
     setActiveTask(null);
   };

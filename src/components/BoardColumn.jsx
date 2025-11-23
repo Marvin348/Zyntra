@@ -2,25 +2,21 @@ import { useDroppable } from "@dnd-kit/core";
 import useProjectsStore from "../storage/useProjectsStore";
 import EmptyTask from "./EmptyTask";
 import Task from "./Task";
-import { SortableContext } from "@dnd-kit/sortable";
 
 const BoardColumn = ({ label, status, setTaskModalOpen }) => {
-  const { isOver, setNodeRef } = useDroppable({ id: status });
+  const { setNodeRef } = useDroppable({ id: status });
 
   const activeProjectId = useProjectsStore((state) => state.activeProjectId);
-
-  const deleteTask = useProjectsStore((state) => state.deleteTask);
-
-  const setEditTask = useProjectsStore((state) => state.setEditTask);
-
   const activeProject = useProjectsStore((state) =>
     state.projects.find((p) => p.id === activeProjectId)
   );
 
+  const deleteTask = useProjectsStore((state) => state.deleteTask);
+  const setEditTask = useProjectsStore((state) => state.setEditTask);
+
   const columnTasks = activeProject?.tasks?.filter(
     (task) => task.status === status
   );
-  const ids = columnTasks.map((t) => t.id);
 
   return (
     <div
@@ -38,19 +34,17 @@ const BoardColumn = ({ label, status, setTaskModalOpen }) => {
           <EmptyTask />
         </div>
       ) : (
-        <SortableContext items={ids}>
-          {columnTasks.map((item) => (
-            <Task
-              key={item.id}
-              task={item}
-              deleteTask={() => deleteTask(item.id, activeProjectId)}
-              onEditTask={() => {
-                setTaskModalOpen(true);
-                setEditTask(item.id);
-              }}
-            />
-          ))}
-        </SortableContext>
+        columnTasks.map((item) => (
+          <Task
+            key={item.id}
+            task={item}
+            deleteTask={() => deleteTask(item.id, activeProjectId)}
+            onEditTask={() => {
+              setTaskModalOpen(true);
+              setEditTask(item.id);
+            }}
+          />
+        ))
       )}
     </div>
   );
