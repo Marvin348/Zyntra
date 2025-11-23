@@ -12,11 +12,11 @@ const Navbar = ({ onCreateProject }) => {
       <nav className="flex items-center justify-between py-4">
         <div className="flex gap-8">
           <img className="w-28" src={logoWhite} alt="zyntra" />
-          <div className="relative">
+          <div className="relative hidden sm:block">
             <input
               type="text"
               placeholder="Search..."
-              className="hidden sm:block input"
+              className="input"
               value={query}
               onChange={(e) => {
                 const value = e.target.value;

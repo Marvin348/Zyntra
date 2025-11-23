@@ -53,7 +53,7 @@ const AddTaskModal = ({ onClose, projectId, editTaskId }) => {
   };
 
   return (
-    <div className="custom-modal px-4" onClick={onClose}>
+    <div className="custom-modal px-6" onClick={onClose}>
       <div
         className="w-90 md:w-150 h-auto rounded-lg bg-base-200 p-4"
         onClick={(e) => e.stopPropagation()}

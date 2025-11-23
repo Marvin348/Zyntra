@@ -30,7 +30,7 @@ const AddProjectModal = ({ onClose }) => {
   };
 
   return (
-    <div className="custom-modal" onClick={onClose}>
+    <div className="custom-modal px-4" onClick={onClose}>
       <div
         className="w-80 md:w-100 rounded-lg bg-base-200 p-4"
         onClick={(e) => e.stopPropagation()}

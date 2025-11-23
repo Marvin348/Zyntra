@@ -81,7 +81,9 @@ const Board = () => {
         />
       )}
 
-      <div className="flex flex-col sm:flex-row justify-between gap-6">
+{/* flex flex-col flex-wrap md:flex-row justify-between gap-6 */}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <DndContext
           onDragStart={(e) => setActiveTask(e.active.id)}
           onDragEnd={handleDragEnd}
