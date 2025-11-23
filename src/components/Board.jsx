@@ -50,7 +50,6 @@ const Board = () => {
   }
 
   console.log(activeProject);
-  console.log(editTaskId);
 
   return (
     <main>

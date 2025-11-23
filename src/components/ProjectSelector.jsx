@@ -29,7 +29,7 @@ const ProjectSelector = ({ onClose, query }) => {
           >
             <p className="block">{item.name}</p>
             <p className="text-base-content/50 text-xs">
-              {item.tasks.length} tasks{" "}
+              {item.tasks.length} tasks
             </p>
           </div>
         ))

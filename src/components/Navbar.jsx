@@ -19,8 +19,9 @@ const Navbar = ({ onCreateProject }) => {
               className="hidden sm:block input"
               value={query}
               onChange={(e) => {
-                setQuery(e.target.value);
-                setIsSelectorOpen(true);
+                const value = e.target.value;
+                setQuery(value);
+                setIsSelectorOpen(value !== "");
               }}
             />
             {isSeletctorOpen && (
