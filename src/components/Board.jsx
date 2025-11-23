@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FaList } from "react-icons/fa6";
 import useProjectsStore from "../storage/useProjectsStore";
 import AddTaskModal from "./AddTaskModal";
-import BoardControls from "./BoardControls";
 import BoardColumn from "./BoardColumn";
 import EmptyState from "./EmptyState";
 import { COLUMNS } from "../constants/columns";
@@ -63,7 +62,12 @@ const Board = () => {
             <FaList />
           </button>
         </div>
-        <BoardControls onAddTask={() => setTaskModalOpen(true)} />
+        <button
+          className="btn bg-custom"
+          onClick={() => setTaskModalOpen(true)}
+        >
+          Add New Task
+        </button>
       </div>
       {openAllProjects && (
         <ProjectSwitcher
