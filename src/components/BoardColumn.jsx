@@ -4,12 +4,14 @@ import EmptyTask from "./EmptyTask";
 import Task from "./Task";
 import { SortableContext } from "@dnd-kit/sortable";
 
-const BoardColumn = ({ label, status }) => {
+const BoardColumn = ({ label, status, setTaskModalOpen }) => {
   const { isOver, setNodeRef } = useDroppable({ id: status });
 
   const activeProjectId = useProjectsStore((state) => state.activeProjectId);
 
   const deleteTask = useProjectsStore((state) => state.deleteTask);
+
+  const setEditTask = useProjectsStore((state) => state.setEditTask);
 
   const activeProject = useProjectsStore((state) =>
     state.projects.find((p) => p.id === activeProjectId)
@@ -42,6 +44,10 @@ const BoardColumn = ({ label, status }) => {
               key={item.id}
               task={item}
               deleteTask={() => deleteTask(item.id, activeProjectId)}
+              onEditTask={() => {
+                setTaskModalOpen(true);
+                setEditTask(item.id);
+              }}
             />
           ))}
         </SortableContext>

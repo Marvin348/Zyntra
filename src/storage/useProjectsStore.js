@@ -6,8 +6,26 @@ const useProjectsStore = create(
     (set) => ({
       projects: [],
       activeProjectId: null,
+      editTaskId: null,
 
       setActiveProject: (id) => set({ activeProjectId: id }),
+
+      setEditTask: (taskId) => set({ editTaskId: taskId }),
+      clearEditTask: () => set({ editTaskId: null }),
+
+      updateTask: (projectId, taskId, updatedValues) =>
+        set((state) => ({
+          projects: state.projects.map((project) =>
+            project.id === projectId
+              ? {
+                  ...project,
+                  tasks: project.tasks.map((task) =>
+                    task.id === taskId ? { ...task, ...updatedValues } : task
+                  ),
+                }
+              : project
+          ),
+        })),
 
       addProject: (name) =>
         set((state) => {

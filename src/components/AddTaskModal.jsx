@@ -1,20 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TypeSelect from "./TypeSelect";
 import PrioritySelect from "./PrioritySelect";
 import useProjectsStore from "../storage/useProjectsStore";
 import useScrollLock from "../hooks/useScrollLock";
 
-const AddTaskModal = ({ onClose, projectId }) => {
+const AddTaskModal = ({ onClose, projectId, editTaskId }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
   const [priority, setPriority] = useState("");
-
   const [errors, setErrors] = useState({});
 
+  const project = useProjectsStore((state) =>
+    state.projects.find((p) => p.id === projectId)
+  );
+  const taskToEdit = project?.tasks.find((t) => t.id === editTaskId);
+
+  const updateTask = useProjectsStore((state) => state.updateTask);
   const addTask = useProjectsStore((state) => state.addTask);
 
   useScrollLock(true);
+
+  useEffect(() => {
+    if (taskToEdit) {
+      setTitle(taskToEdit.title);
+      setDescription(taskToEdit.description);
+      setType(taskToEdit.type);
+      setPriority(taskToEdit.priority);
+    }
+  }, [taskToEdit, projectId]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -27,10 +41,14 @@ const AddTaskModal = ({ onClose, projectId }) => {
     if (!priority) newError.priority = "Pick a priority";
 
     setErrors(newError);
-
     if (Object.keys(newError).length > 0) return;
 
-    addTask(projectId, { title, description, type, priority });
+    if (editTaskId) {
+      updateTask(projectId, editTaskId, { title, description, type, priority });
+    } else {
+      addTask(projectId, { title, description, type, priority });
+    }
+
     onClose();
   };
 

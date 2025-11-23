@@ -18,15 +18,19 @@ const Board = () => {
 
   const projects = useProjectsStore((state) => state.projects);
   const activeProjectId = useProjectsStore((state) => state.activeProjectId);
+  const setActiveProject = useProjectsStore((state) => state.setActiveProject);
+
   const activeProject = useProjectsStore((state) =>
     state.projects.find((p) => p.id === activeProjectId)
   );
   const updateTaskStatus = useProjectsStore((state) => state.updateTaskStatus);
   const deleteProject = useProjectsStore((state) => state.deleteProject);
-  const setActiveProject = useProjectsStore((state) => state.setActiveProject);
   const deleteAllProjects = useProjectsStore(
     (state) => state.deleteAllProjects
   );
+
+  const editTaskId = useProjectsStore((state) => state.editTaskId);
+  const clearEditTask = useProjectsStore((state) => state.clearEditTask);
 
   const activeTaskData = activeProject?.tasks.find((t) => t.id === activeTask);
 
@@ -46,6 +50,7 @@ const Board = () => {
   }
 
   console.log(activeProject);
+  console.log(editTaskId);
 
   return (
     <main>
@@ -81,7 +86,12 @@ const Board = () => {
           sensors={sensors}
         >
           {COLUMNS.map(({ label, status }) => (
-            <BoardColumn key={status} label={label} status={status} />
+            <BoardColumn
+              key={status}
+              label={label}
+              status={status}
+              setTaskModalOpen={setTaskModalOpen}
+            />
           ))}
           <DragOverlay>
             {activeTask ? <Task task={activeTaskData} /> : null}
@@ -91,7 +101,11 @@ const Board = () => {
       {taskModalOpen && (
         <AddTaskModal
           projectId={activeProject.id}
-          onClose={() => setTaskModalOpen(false)}
+          editTaskId={editTaskId}
+          onClose={() => {
+            clearEditTask();
+            setTaskModalOpen(false);
+          }}
         />
       )}
     </main>

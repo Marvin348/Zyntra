@@ -5,7 +5,7 @@ import { TYPE_OPTIONS, PRIORITY_OPTIONS } from "../constants/taskOptions";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-const Task = ({ task, deleteTask }) => {
+const Task = ({ task, deleteTask, onEditTask }) => {
   const { id, title, description, type, priority } = task;
 
   const [open, setOpen] = useState(false);
@@ -60,7 +60,15 @@ const Task = ({ task, deleteTask }) => {
             <SlOptions />
           </button>
         </div>
-        {open && <TaskDropdown deleteTask={deleteTask} />}
+        {open && (
+          <TaskDropdown
+            deleteTask={deleteTask}
+            onEditTask={() => {
+              setOpen(false);
+              onEditTask();
+            }}
+          />
+        )}
         <div>
           <h2 className="mt-2 font-bold">{title}</h2>
           <p className="text-base-content/50 text-sm">{description}</p>
