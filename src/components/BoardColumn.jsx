@@ -26,7 +26,7 @@ const BoardColumn = ({ label, status, setTaskModalOpen }) => {
     >
       <div className="flex items-center justify-between bg-base-100 p-4 rounded-md">
         <h3 className="font-medium">{label}</h3>
-        <div className="flex items-center justify-center bg-custom size-6 rounded-full">
+        <div className="flex items-center justify-center text-neutral-content bg-custom size-6 rounded-full">
           {columnTasks.length}
         </div>
       </div>

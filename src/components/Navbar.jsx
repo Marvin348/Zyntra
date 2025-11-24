@@ -3,15 +3,23 @@ import logoBlack from "../assets/zyntra-black.svg";
 import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
 import ProjectSelector from "./ProjectSelector";
+import { useTheme } from "../context/ThemeContext";
+
 const Navbar = ({ onCreateProject }) => {
   const [isSeletctorOpen, setIsSelectorOpen] = useState(false);
   const [query, setQuery] = useState("");
+
+  const { theme } = useTheme();
 
   return (
     <header>
       <nav className="flex items-center justify-between py-4">
         <div className="flex gap-8">
-          <img className="w-28" src={logoWhite} alt="zyntra" />
+          <img
+            className="w-28"
+            src={theme === "dark" ? logoWhite : logoBlack}
+            alt="zyntra"
+          />
           <div className="relative hidden sm:block">
             <input
               type="text"

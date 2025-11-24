@@ -64,7 +64,7 @@ const Board = () => {
           </button>
         </div>
         <button
-          className="btn bg-custom"
+          className="btn text-neutral-content bg-custom"
           onClick={() => setTaskModalOpen(true)}
         >
           Add New Task

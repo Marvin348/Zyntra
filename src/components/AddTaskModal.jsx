@@ -114,7 +114,7 @@ const AddTaskModal = ({ onClose, projectId, editTaskId }) => {
             <button className="btn font-medium" type="button" onClick={onClose}>
               Close
             </button>
-            <button className="btn w-30 font-medium bg-custom" type="submit">
+            <button className="btn w-30 font-medium text-neutral-content bg-custom" type="submit">
               Add Task
             </button>
           </div>
