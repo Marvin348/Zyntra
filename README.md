@@ -42,3 +42,10 @@
 ### Mobile
 
 ![Mobile Screenshot](./screenshots/zyntra-mobile.png)
+
+## 📝 Note
+This project was part of my learning journey.
+I built it while exploring new tools and patterns.
+I’m still growing as a developer, and this project helped me understand many new concepts.
+
+
