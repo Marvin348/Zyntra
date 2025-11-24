@@ -13,6 +13,39 @@ const useProjectsStore = create(
       setEditTask: (taskId) => set({ editTaskId: taskId }),
       clearEditTask: () => set({ editTaskId: null }),
 
+      addProject: (name) =>
+        set((state) => {
+          const id = crypto.randomUUID();
+          return {
+            projects: [...state.projects, { id, name, tasks: [] }],
+            activeProjectId: id,
+          };
+        }),
+
+      addTask: (projectId, data) =>
+        set((state) => {
+          const projectExists = state.projects.find((p) => p.id === projectId);
+
+          if (!projectExists) return state;
+
+          const newTask = {
+            id: crypto.randomUUID(),
+            title: data.title,
+            description: data.description,
+            type: data.type,
+            priority: data.priority,
+            status: "todo",
+          };
+
+          const updatedProjects = state.projects.map((item) =>
+            item.id === projectId
+              ? { ...item, tasks: [...item.tasks, newTask] }
+              : item
+          );
+
+          return { ...state, projects: updatedProjects };
+        }),
+
       updateTask: (projectId, taskId, updatedValues) =>
         set((state) => ({
           projects: state.projects.map((project) =>
@@ -26,15 +59,6 @@ const useProjectsStore = create(
               : project
           ),
         })),
-
-      addProject: (name) =>
-        set((state) => {
-          const id = crypto.randomUUID();
-          return {
-            projects: [...state.projects, { id, name, tasks: [] }],
-            activeProjectId: id,
-          };
-        }),
 
       deleteProject: (projectId) =>
         set((state) => {
@@ -82,30 +106,6 @@ const useProjectsStore = create(
               : p
           ),
         })),
-
-      addTask: (projectId, data) =>
-        set((state) => {
-          const projectExists = state.projects.find((p) => p.id === projectId);
-
-          if (!projectExists) return state;
-
-          const newTask = {
-            id: crypto.randomUUID(),
-            title: data.title,
-            description: data.description,
-            type: data.type,
-            priority: data.priority,
-            status: "todo",
-          };
-
-          const updatedProjects = state.projects.map((item) =>
-            item.id === projectId
-              ? { ...item, tasks: [...item.tasks, newTask] }
-              : item
-          );
-
-          return { ...state, projects: updatedProjects };
-        }),
     }),
 
     {
