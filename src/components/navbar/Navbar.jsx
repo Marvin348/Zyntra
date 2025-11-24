@@ -1,9 +1,9 @@
-import logoWhite from "../assets/zyntra-white.svg";
-import logoBlack from "../assets/zyntra-black.svg";
+import logoWhite from "../../assets/zyntra-white.svg";
+import logoBlack from "../../assets/zyntra-black.svg";
 import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
-import ProjectSelector from "./ProjectSelector";
-import { useTheme } from "../context/ThemeContext";
+import ProjectSelector from "../projects/ProjectSelector";
+import { useTheme } from "../../context/ThemeContext";
 
 const Navbar = ({ onCreateProject }) => {
   const [isSeletctorOpen, setIsSelectorOpen] = useState(false);

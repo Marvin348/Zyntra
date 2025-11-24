@@ -1,6 +1,6 @@
 import { FaChevronDown } from "react-icons/fa";
 import { useState } from "react";
-import { PRIORITY_OPTIONS } from "../constants/taskOptions";
+import { PRIORITY_OPTIONS } from "../../constants/taskOptions";
 
 const PrioritySelect = ({ priority, setPriority, priorityError }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,8 +1,8 @@
 import { useDroppable } from "@dnd-kit/core";
-import useProjectsStore from "../storage/useProjectsStore";
-import EmptyTask from "./EmptyTask";
-import Task from "./Task";
-import { toastTaskDelete } from "../utils/toastService";
+import useProjectsStore from "../../storage/useProjectsStore";
+import EmptyTask from "../EmptyTask";
+import Task from "../tasks/Task";
+import { toastTaskDelete } from "../../utils/toastService";
 
 const BoardColumn = ({ label, status, setTaskModalOpen }) => {
   const { setNodeRef } = useDroppable({ id: status });

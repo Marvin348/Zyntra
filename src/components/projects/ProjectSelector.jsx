@@ -1,4 +1,4 @@
-import useProjectsStore from "../storage/useProjectsStore";
+import useProjectsStore from "../../storage/useProjectsStore";
 const ProjectSelector = ({ onClose, query }) => {
   const projects = useProjectsStore((state) => state.projects);
   const setActiveProject = useProjectsStore((state) => state.setActiveProject);

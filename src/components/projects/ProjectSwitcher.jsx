@@ -1,12 +1,12 @@
 import { MdDeleteOutline } from "react-icons/md";
 import { IoIosClose } from "react-icons/io";
-import ConfirmDialog from "./ConfirmDialog";
-import useScrollLock from "../hooks/useScrollLock";
+import ConfirmDialog from "../tasks/ConfirmDialog";
+import useScrollLock from "../../hooks/useScrollLock";
 import { useState } from "react";
 import {
   toastProjectDeleteAll,
   toastProjectDelete,
-} from "../utils/toastService";
+} from "../../utils/toastService";
 
 const ProjectSwitcher = ({
   projects,

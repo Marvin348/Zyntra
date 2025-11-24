@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { FaList } from "react-icons/fa6";
-import useProjectsStore from "../storage/useProjectsStore";
-import AddTaskModal from "./AddTaskModal";
+import useProjectsStore from "../../storage/useProjectsStore";
+import AddTaskModal from "../projects/AddTaskModal";
 import BoardColumn from "./BoardColumn";
-import EmptyState from "./EmptyState";
-import { COLUMNS } from "../constants/columns";
+import EmptyState from "../EmptyState";
+import { COLUMNS } from "../../constants/columns";
 import { closestCenter, DndContext, DragOverlay } from "@dnd-kit/core";
-import Task from "./Task";
-import ProjectSwitcher from "./ProjectSwitcher";
-import { useBoardDnd } from "../hooks/useBoardDnd";
+import Task from "../tasks/Task";
+import ProjectSwitcher from "../projects/ProjectSwitcher";
+import { useBoardDnd } from "../../hooks/useBoardDnd";
 
 const Board = () => {
   const [activeTask, setActiveTask] = useState(null);
@@ -47,9 +47,6 @@ const Board = () => {
       </div>
     );
   }
-
-  console.log(activeProject);
-  console.log(activeTask);
 
   return (
     <main>

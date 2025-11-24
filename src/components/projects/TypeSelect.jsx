@@ -1,6 +1,6 @@
 import { FaChevronDown } from "react-icons/fa";
 import { useState } from "react";
-import { TYPE_OPTIONS } from "../constants/taskOptions";
+import { TYPE_OPTIONS } from "../../constants/taskOptions";
 const TypeSelect = ({ type, setType, typeError }) => {
   const [isOpen, setIsOpen] = useState(false);
 

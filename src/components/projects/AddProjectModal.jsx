@@ -1,7 +1,7 @@
-import useProjectsStore from "../storage/useProjectsStore";
-import useScrollLock from "../hooks/useScrollLock";
+import useProjectsStore from "../../storage/useProjectsStore";
+import useScrollLock from "../../hooks/useScrollLock";
 import { useEffect, useRef, useState } from "react";
-import { toastProjectAdded } from "../utils/toastService";
+import { toastProjectAdded } from "../../utils/toastService";
 
 const AddProjectModal = ({ onClose }) => {
   const [projectName, setProjectName] = useState("");

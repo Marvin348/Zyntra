@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Navbar from "./components/Navbar";
-import AddProjectModal from "./components/AddProjectModal";
-import Board from "./components/Board";
+import Navbar from "./components/navbar/Navbar";
+import AddProjectModal from "./components/projects/AddProjectModal";
+import Board from "./components/board/Board";
 import { Toaster } from "react-hot-toast";
 import { customToastOptions } from "./utils/toastOptions";
 
@@ -14,9 +14,7 @@ function App() {
       {isProjectModalOpen && (
         <AddProjectModal onClose={() => setIsProjectModalOpen(false)} />
       )}
-
       <Toaster position="bottom-right" toastOptions={customToastOptions} />
-
       <Board />
     </div>
   );

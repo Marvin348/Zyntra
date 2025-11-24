@@ -1,7 +1,7 @@
 import { SlOptions } from "react-icons/sl";
 import TaskDropdown from "./TaskDropdown";
 import { useState } from "react";
-import { TYPE_OPTIONS, PRIORITY_OPTIONS } from "../constants/taskOptions";
+import { TYPE_OPTIONS, PRIORITY_OPTIONS } from "../../constants/taskOptions";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 

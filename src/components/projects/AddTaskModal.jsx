@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import TypeSelect from "./TypeSelect";
 import PrioritySelect from "./PrioritySelect";
-import useProjectsStore from "../storage/useProjectsStore";
-import useScrollLock from "../hooks/useScrollLock";
-import { toastTaskAdded, toastTaskUpdated } from "../utils/toastService";
+import useProjectsStore from "../../storage/useProjectsStore";
+import useScrollLock from "../../hooks/useScrollLock";
+import { toastTaskAdded, toastTaskUpdated } from "../../utils/toastService";
 
 const AddTaskModal = ({ onClose, projectId, editTaskId }) => {
   const [title, setTitle] = useState("");
@@ -114,7 +114,10 @@ const AddTaskModal = ({ onClose, projectId, editTaskId }) => {
             <button className="btn font-medium" type="button" onClick={onClose}>
               Close
             </button>
-            <button className="btn w-30 font-medium text-neutral-content bg-custom" type="submit">
+            <button
+              className="btn w-30 font-medium text-neutral-content bg-custom"
+              type="submit"
+            >
               Add Task
             </button>
           </div>
