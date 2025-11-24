@@ -3,6 +3,8 @@
 ## 🚀 Live Demo
 [Live Demo](https://home-5019068610.app-ionos.space/)
 
+> ⚠️ ZYNTRA is optimized for desktop usage. Mobile layout is not supported by design.
+
 ## 📌 Features
 
 - Create / edit / delete tasks
