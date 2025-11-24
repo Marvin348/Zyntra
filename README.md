@@ -31,7 +31,7 @@
 - Professional Git Workflow (branches, merge strategy, commits)
 
   
-> ⚠️ ZYNTRA is optimized for desktop usage. Mobile layout is not supported by design.
+> ⚠️ ZYNTRA is optimized for desktop usage.
 
 ## Screenshots
 
