@@ -3,6 +3,7 @@ import TypeSelect from "./TypeSelect";
 import PrioritySelect from "./PrioritySelect";
 import useProjectsStore from "../storage/useProjectsStore";
 import useScrollLock from "../hooks/useScrollLock";
+import { toastTaskAdded, toastTaskUpdated } from "../utils/toastService";
 
 const AddTaskModal = ({ onClose, projectId, editTaskId }) => {
   const [title, setTitle] = useState("");
@@ -45,19 +46,18 @@ const AddTaskModal = ({ onClose, projectId, editTaskId }) => {
 
     if (editTaskId) {
       updateTask(projectId, editTaskId, { title, description, type, priority });
+      toastTaskUpdated();
     } else {
       addTask(projectId, { title, description, type, priority });
+      toastTaskAdded();
     }
 
     onClose();
   };
 
   return (
-    <div className="custom-modal px-6" onClick={onClose}>
-      <div
-        className="w-90 md:w-150 h-auto rounded-lg bg-base-200 p-4"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <div className="custom-modal px-6">
+      <div className="w-90 md:w-150 h-auto rounded-lg bg-base-200 p-4">
         <form onSubmit={onSubmit}>
           <h2 className="font-semibold text-xl mb-1">Add Task</h2>
           <p className="text-base-content/40 text-sm">

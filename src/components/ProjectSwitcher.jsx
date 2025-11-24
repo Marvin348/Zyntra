@@ -3,6 +3,10 @@ import { IoIosClose } from "react-icons/io";
 import ConfirmDialog from "./ConfirmDialog";
 import useScrollLock from "../hooks/useScrollLock";
 import { useState } from "react";
+import {
+  toastProjectDeleteAll,
+  toastProjectDelete,
+} from "../utils/toastService";
 
 const ProjectSwitcher = ({
   projects,
@@ -18,6 +22,12 @@ const ProjectSwitcher = ({
   const onSelect = (id) => {
     setActiveProject(id);
     onClose();
+  };
+
+  const handleConfirm = () => {
+    onDeleteAll();
+    onClose();
+    toastProjectDeleteAll();
   };
 
   return (
@@ -58,6 +68,7 @@ const ProjectSwitcher = ({
                 className="rounded-md p-1 bg-prio-high/20 text-prio-high cursor-pointer hover:text-base-content"
                 onClick={(e) => {
                   e.stopPropagation();
+                  toastProjectDelete();
                   onDeleteProject(p.id);
                 }}
               >
@@ -82,10 +93,7 @@ const ProjectSwitcher = ({
         {showConfirm && (
           <ConfirmDialog
             onClose={() => setShowConfirm(false)}
-            onConfirm={() => {
-              onDeleteAll();
-              onClose();
-            }}
+            onConfirm={() => handleConfirm()}
           />
         )}
       </div>

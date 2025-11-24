@@ -1,6 +1,7 @@
 import useProjectsStore from "../storage/useProjectsStore";
 import useScrollLock from "../hooks/useScrollLock";
 import { useEffect, useRef, useState } from "react";
+import { toastProjectAdded } from "../utils/toastService";
 
 const AddProjectModal = ({ onClose }) => {
   const [projectName, setProjectName] = useState("");
@@ -26,6 +27,9 @@ const AddProjectModal = ({ onClose }) => {
 
     addProject(projectName);
     setProjectName("");
+
+    toastProjectAdded();
+
     onClose();
   };
 
@@ -37,7 +41,9 @@ const AddProjectModal = ({ onClose }) => {
       >
         <form onSubmit={onSubmit}>
           <h2 className="font-semibold text-xl mb-1">New Project</h2>
-          <p className="text-base-content/40 text-sm">Fill the input below to create a project</p>
+          <p className="text-base-content/40 text-sm">
+            Fill the input below to create a project
+          </p>
           <input
             type="text"
             placeholder="Type here"

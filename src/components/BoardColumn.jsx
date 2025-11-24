@@ -2,6 +2,7 @@ import { useDroppable } from "@dnd-kit/core";
 import useProjectsStore from "../storage/useProjectsStore";
 import EmptyTask from "./EmptyTask";
 import Task from "./Task";
+import { toastTaskDelete } from "../utils/toastService";
 
 const BoardColumn = ({ label, status, setTaskModalOpen }) => {
   const { setNodeRef } = useDroppable({ id: status });
@@ -38,7 +39,10 @@ const BoardColumn = ({ label, status, setTaskModalOpen }) => {
           <Task
             key={item.id}
             task={item}
-            deleteTask={() => deleteTask(item.id, activeProjectId)}
+            deleteTask={() => {
+              toastTaskDelete();
+              deleteTask(item.id, activeProjectId);
+            }}
             onEditTask={() => {
               setTaskModalOpen(true);
               setEditTask(item.id);
