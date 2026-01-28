@@ -1,7 +1,7 @@
 # Zyntra - Kanban Task Manager
 
 ## 🚀 Live Demo
-[Live Demo](https://home-5019068610.app-ionos.space/)
+not available anymore
 
 ## 📌 Features
 
